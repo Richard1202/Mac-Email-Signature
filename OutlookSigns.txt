@@ -1,0 +1,3 @@
+tell application id "com.microsoft.Outlook"
+make new signature with properties {name:"Dynamic Signature", content:"%@"}
+end tell

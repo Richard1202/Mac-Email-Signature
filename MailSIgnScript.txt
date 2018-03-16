@@ -1,0 +1,36 @@
+tell application id "com.apple.Mail"
+delete (every signature whose name is "Dynamic Signature")
+make new signature with properties {name:"Dynamic Signature", content:"<html><body></body></html>"}
+end tell
+
+tell application "System Events"
+set currentActiveApp to first process where it is frontmost
+set activeAppName to name of currentActiveApp
+end tell
+
+tell application "Mail"
+activate
+end tell
+
+repeat while (currentActiveApp is frontmost)
+delay 0.1
+end repeat
+
+my subMailSignaturesPrefsOpen()
+
+set frontmost of currentActiveApp to true
+
+
+on subMailSignaturesPrefsOpen()
+tell application "System Events"
+tell application process "Mail"
+keystroke "," using command down
+delay 0.5
+tell window 1
+click button "Signatures" of toolbar 1
+delay 0.5
+click button 1
+end tell
+end tell
+end tell
+end subMailSignaturesPrefsOpen
